@@ -1,4 +1,6 @@
-(function () {
+import { toggleModal } from "../modal/index.js";
+
+export function initializeButton() {
   const WIDGET_CLASS = "tidy-widget";
 
   function injectStyles() {
@@ -10,24 +12,23 @@
         width: 4rem;
         height: 4rem;
         border-radius: 50%;
-        background-color: #ffffff;
-        box-shadow: 0 4px 12px #00000026;
-        z-index: 10000;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        z-index: 99999;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.875rem;
-        font-weight: bold;
-        border: 1px solid #e5e7eb;
+        font-size: 2rem;
+        border: none;
         cursor: pointer;
-        transition: transform 150ms ease-in-out;
-        transform: scale(1);
+        transition: transform 0.2s ease;
+        border: 1px solid rgb(221, 221, 221);
+        background: transparent;
       }
       .${WIDGET_CLASS}:hover {
         transform: scale(1.1);
       }
       .${WIDGET_CLASS}:active {
-        transform: scale(1);
+        transform: scale(0.95);
       }
     `;
 
@@ -40,6 +41,10 @@
     const widget = document.createElement("button");
     widget.className = WIDGET_CLASS;
     widget.innerHTML = "🐼";
+
+    widget.addEventListener("click", () => {
+      toggleModal();
+    });
 
     return widget;
   }
@@ -55,4 +60,4 @@
   } else {
     initialize();
   }
-})();
+}

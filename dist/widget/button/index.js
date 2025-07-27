@@ -1,5 +1,5 @@
-import { toggleModal } from "./widget/modal/modal.js";
-export function initializeWidget() {
+import { toggleModal } from "../modal/index.js";
+export function initializeButton() {
     const WIDGET_CLASS = "tidy-widget";
     function injectStyles() {
         const css = `
@@ -10,8 +10,7 @@ export function initializeWidget() {
         width: 4rem;
         height: 4rem;
         border-radius: 50%;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         z-index: 99999;
         display: flex;
         align-items: center;
@@ -20,8 +19,8 @@ export function initializeWidget() {
         border: none;
         cursor: pointer;
         transition: transform 0.2s ease;
-        color: white;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgb(221, 221, 221);
+        background: transparent;
       }
       .${WIDGET_CLASS}:hover {
         transform: scale(1.1);
@@ -38,7 +37,6 @@ export function initializeWidget() {
         const widget = document.createElement("button");
         widget.className = WIDGET_CLASS;
         widget.innerHTML = "🐼";
-        // Add click event to open modal
         widget.addEventListener("click", () => {
             toggleModal();
         });
