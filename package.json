@@ -1,0 +1,15 @@
+{
+  "name": "tidy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/usernamechiho/tidy.git",
+  "author": "이치호 <minepanorama@naver.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
