@@ -1,3 +1,4 @@
+import { initializeTodo } from "./todo/index.js";
 let modalElement = null;
 let isVisible = false;
 function injectStyles() {
@@ -11,14 +12,13 @@ function injectStyles() {
       max-height: 60vh;
       background: white;
       border-radius: 1rem;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       z-index: 10001;
       transform: translateY(10px);
       opacity: 0;
       visibility: hidden;
       transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
-      border: 1px solid rgb(221, 221, 221); 
     }
     
     .tidy-modal.visible {
@@ -72,7 +72,7 @@ function createModal() {
     header.className = "tidy-modal-header";
     const title = document.createElement("h2");
     title.className = "tidy-modal-title";
-    title.textContent = "Tidy 🐼";
+    title.textContent = "할 일 관리 📝";
     const closeButton = document.createElement("button");
     closeButton.className = "tidy-modal-close";
     closeButton.innerHTML = "×";
@@ -81,6 +81,9 @@ function createModal() {
     header.appendChild(closeButton);
     const content = document.createElement("div");
     content.className = "tidy-modal-content";
+    // Todo 컨테이너 추가
+    const todoContainer = initializeTodo();
+    content.appendChild(todoContainer);
     modal.appendChild(header);
     modal.appendChild(content);
     modalElement = modal;
