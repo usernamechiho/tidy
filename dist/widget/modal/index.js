@@ -72,7 +72,7 @@ function createModal() {
     header.className = "tidy-modal-header";
     const title = document.createElement("h2");
     title.className = "tidy-modal-title";
-    title.textContent = "할 일 관리 📝";
+    title.textContent = "Tidy 🐼";
     const closeButton = document.createElement("button");
     closeButton.className = "tidy-modal-close";
     closeButton.innerHTML = "×";
@@ -88,6 +88,13 @@ function createModal() {
     modal.appendChild(content);
     modalElement = modal;
     document.body.appendChild(modal);
+}
+function closeWithEscape() {
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && isVisible) {
+            hideModal();
+        }
+    });
 }
 export function showModal() {
     if (modalElement && !isVisible) {
@@ -112,9 +119,5 @@ export function toggleModal() {
 export function initializeModal() {
     injectStyles();
     createModal();
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && isVisible) {
-            hideModal();
-        }
-    });
+    closeWithEscape();
 }

@@ -196,14 +196,12 @@ function injectTodoStyles() {
     styleTag.innerHTML = css;
     document.head.appendChild(styleTag);
 }
-// Todo UI 렌더링
 function renderTodos() {
     if (!todoContainer)
         return;
     const todoList = todoContainer.querySelector(".tidy-todo-list");
     if (!todoList)
         return;
-    // 통계 업데이트
     const statsElement = todoContainer.querySelector(".tidy-todo-stats");
     if (statsElement) {
         const totalCount = todos.length;
@@ -211,7 +209,6 @@ function renderTodos() {
         const pendingCount = totalCount - completedCount;
         statsElement.textContent = `총 ${totalCount}개 (완료: ${completedCount}, 대기: ${pendingCount})`;
     }
-    // 리스트 비우기
     todoList.innerHTML = "";
     if (todos.length === 0) {
         const emptyElement = document.createElement("div");
@@ -221,7 +218,6 @@ function renderTodos() {
         todoList.appendChild(emptyElement);
         return;
     }
-    // Todo 항목들 렌더링
     todos.forEach((todo) => {
         const listItem = document.createElement("li");
         listItem.className = `tidy-todo-item ${todo.completed ? "completed" : ""}`;
@@ -244,11 +240,9 @@ function renderTodos() {
         todoList.appendChild(listItem);
     });
 }
-// Todo 컨테이너 생성
 function createTodoContainer() {
     const container = document.createElement("div");
     container.className = "tidy-todo-container";
-    // 폼 생성
     const form = document.createElement("form");
     form.className = "tidy-todo-form";
     const input = document.createElement("input");
@@ -262,7 +256,6 @@ function createTodoContainer() {
     addButton.textContent = "추가";
     form.appendChild(input);
     form.appendChild(addButton);
-    // 폼 제출 이벤트
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         const text = input.value;
@@ -271,10 +264,8 @@ function createTodoContainer() {
             input.value = "";
         }
     });
-    // 통계 영역
     const stats = document.createElement("div");
     stats.className = "tidy-todo-stats";
-    // 리스트 컨테이너
     const listContainer = document.createElement("ul");
     listContainer.className = "tidy-todo-list";
     container.appendChild(form);
@@ -282,28 +273,10 @@ function createTodoContainer() {
     container.appendChild(listContainer);
     return container;
 }
-// Todo 기능 초기화
 export function initializeTodo() {
     injectTodoStyles();
-    // 저장된 todos 로드
     todos = todoStorage.loadTodos();
-    // 컨테이너 생성
     todoContainer = createTodoContainer();
-    // 초기 렌더링
     renderTodos();
     return todoContainer;
-}
-// Todo 데이터 내보내기 (디버깅용)
-export function exportTodos() {
-    return [...todos];
-}
-// Todo 데이터 가져오기 (외부에서 사용)
-export function getTodos() {
-    return [...todos];
-}
-// Todo 전체 삭제
-export function clearAllTodos() {
-    todos = [];
-    todoStorage.clearTodos();
-    renderTodos();
 }

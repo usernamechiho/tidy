@@ -219,19 +219,15 @@ function injectTodoStyles(): void {
   document.head.appendChild(styleTag);
 }
 
-// Todo UI 렌더링
 function renderTodos(): void {
   if (!todoContainer) return;
 
-  const todoList = todoContainer.querySelector(
-    ".tidy-todo-list"
-  ) as HTMLElement;
+  const todoList = todoContainer.querySelector(".tidy-todo-list");
+
   if (!todoList) return;
 
-  // 통계 업데이트
-  const statsElement = todoContainer.querySelector(
-    ".tidy-todo-stats"
-  ) as HTMLElement;
+  const statsElement = todoContainer.querySelector(".tidy-todo-stats");
+
   if (statsElement) {
     const totalCount = todos.length;
     const completedCount = todos.filter((todo) => todo.completed).length;
@@ -240,7 +236,6 @@ function renderTodos(): void {
     statsElement.textContent = `총 ${totalCount}개 (완료: ${completedCount}, 대기: ${pendingCount})`;
   }
 
-  // 리스트 비우기
   todoList.innerHTML = "";
 
   if (todos.length === 0) {
@@ -252,7 +247,6 @@ function renderTodos(): void {
     return;
   }
 
-  // Todo 항목들 렌더링
   todos.forEach((todo) => {
     const listItem = document.createElement("li");
     listItem.className = `tidy-todo-item ${todo.completed ? "completed" : ""}`;
@@ -283,12 +277,10 @@ function renderTodos(): void {
   });
 }
 
-// Todo 컨테이너 생성
 function createTodoContainer(): HTMLElement {
   const container = document.createElement("div");
   container.className = "tidy-todo-container";
 
-  // 폼 생성
   const form = document.createElement("form");
   form.className = "tidy-todo-form";
 
@@ -306,7 +298,6 @@ function createTodoContainer(): HTMLElement {
   form.appendChild(input);
   form.appendChild(addButton);
 
-  // 폼 제출 이벤트
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     const text = input.value;
@@ -316,11 +307,9 @@ function createTodoContainer(): HTMLElement {
     }
   });
 
-  // 통계 영역
   const stats = document.createElement("div");
   stats.className = "tidy-todo-stats";
 
-  // 리스트 컨테이너
   const listContainer = document.createElement("ul");
   listContainer.className = "tidy-todo-list";
 
@@ -331,35 +320,14 @@ function createTodoContainer(): HTMLElement {
   return container;
 }
 
-// Todo 기능 초기화
 export function initializeTodo(): HTMLElement {
   injectTodoStyles();
 
-  // 저장된 todos 로드
   todos = todoStorage.loadTodos();
 
-  // 컨테이너 생성
   todoContainer = createTodoContainer();
 
-  // 초기 렌더링
   renderTodos();
 
   return todoContainer;
-}
-
-// Todo 데이터 내보내기 (디버깅용)
-export function exportTodos(): TodoItem[] {
-  return [...todos];
-}
-
-// Todo 데이터 가져오기 (외부에서 사용)
-export function getTodos(): TodoItem[] {
-  return [...todos];
-}
-
-// Todo 전체 삭제
-export function clearAllTodos(): void {
-  todos = [];
-  todoStorage.clearTodos();
-  renderTodos();
 }
